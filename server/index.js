@@ -66,13 +66,13 @@ app.get('/repos', function (req, res) {
 		console.log(req.err)
 	} 
 	
-	res.send(
-	Repo.find((err, repolist) => {
+	//we are getting repos from DB but this is async so we are sending back res.send before Repo.find is done
+	//throws an error in the view so nothing is rendered
+	Repo.find(function(err, repolist){
 		if(err) console.error(err)
-		console.log('me 1')
-		array = repolist;
-	}))
-	
+		console.log(repolist)
+	  res.send(repolist)
+	})
 	console.log('me 2')
 		
 });

@@ -15,10 +15,11 @@ class RepoList extends React.Component {
 	    <h4> Repo List Component </h4>
 	    <ul>
 	    There are {this.props.repos.length} repos.
+	    {console.log(this.props)}
 	  	    {this.props.repos.map((user, index) => 
 	  		<ol key={index} >
-	  		{user.owner.login} 
-	  		<a href={user.html_url}> <button> {user.name} </button> </a>
+	  		{user.username} 
+	  	    <button> {user.score} </button> 
 	  		</ol> )}
 	  	</ul>
 	  </div>

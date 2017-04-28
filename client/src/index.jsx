@@ -18,11 +18,13 @@ class App extends React.Component {
        url: 'http://127.0.0.1:1128/repos',
        dataType: 'plain/text',
        type: 'GET',
-       success: function(data) {
+       success: (data) => {
          console.log('data')
       },
-       error: function(err) {
-        console.log('err')
+       error: (err) => {
+        this.setState({
+          repos: JSON.parse(err.responseText)
+        })
        }
     });
 
