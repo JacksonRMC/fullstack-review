@@ -8,27 +8,43 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
+      current: null
     }
-    // ['search'].forEach((func) => {
-    //   this[func] = this[func].bind(this)
-    // })
+
     this.search = this.search.bind(this);
+    
+    $.ajax({
+       url: 'http://127.0.0.1:1128/repos',
+       dataType: 'plain/text',
+       type: 'GET',
+       success: function(data) {
+         console.log('data')
+      },
+       error: function(err) {
+        console.log('err')
+       }
+    });
+
   }
 
+
+
   search (term) {
-    console.log(`${term} was searched`);
+    
+    console.log(JSON.stringify({"term": `${term}`}))
     $.ajax({
       url: 'http://127.0.0.1:1128/repos/import',
-      data: JSON.stringify({"term": `${term}`}),
       type: 'POST',
+      data: {"term": `${term}`},
       datatype: 'application/json',
       error: function (err) {
         if ( err ) {
-        console.log('err');
+        console.log(err);
       }
       },
       success: (data) => {
+      console.log(`${term} was searched`);
        this.setState({
         repos: data
        })
